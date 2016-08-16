@@ -9,6 +9,7 @@ dist: trusty
 before_install:
   #- curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
   - curl -OLs https://raw.githubusercontent.com/joshuaulrich/r-travis/master/run.sh && chmod 0755 run.sh
+  - sudo add-apt-repository -y ppa:edd/misc # r-cran-ghit
   - ./run.sh bootstrap
 
 install:
