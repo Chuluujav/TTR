@@ -7,11 +7,13 @@ sudo: required
 dist: trusty
 
 before_install:
-  - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
+  #- curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
+  - curl -OLs https://raw.githubusercontent.com/joshuaulrich/r-travis/master/run.sh && chmod 0755 run.sh
   - ./run.sh bootstrap
 
 install:
-  - ./run.sh install_aptget r-cran-runit r-cran-xts
+  - ./run.sh install_aptget r-cran-runit r-cran-zoo
+  - ./run.sh install_github joshuaulrich/xts
 
 script:
   #- ./run.sh run_tests
