@@ -1,26 +1,26 @@
-language: r
+# Run Travis CI for R using https://eddelbuettel.github.io/r-travis/
 
-# need sudo
-sudo: false
+language: c
 
-# cache packages because devtools is a beast
-cache: packages
+sudo: required
 
-# Be strict when checking our package
-warnings_are_errors: true
+dist: trusty
 
-# System dependencies
-#apt_packages:
-# - libcurl4-openssl-dev
-# - libxml2-dev
+before_install:
+  - curl -OLs http://eddelbuettel.github.io/r-travis/run.sh && chmod 0755 run.sh
+  - ./run.sh bootstrap
 
-# Binaries from Michael Rutter's ppa
-#r_binary_packages:
+install:
+  - ./run.sh install_aptget r-cran-runit r-cran-xts
 
-# Done via install.packages
-#r_packages:
+script:
+  #- ./run.sh run_tests
+  - travis_wait ./run.sh run_tests
 
-# Install the bleeding edge version of a package from github (eg to pick
-# up a not-yet-released bugfix)
-r_github_packages:
- - joshuaulrich/xts
+after_failure:
+  - ./run.sh dump_logs
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
